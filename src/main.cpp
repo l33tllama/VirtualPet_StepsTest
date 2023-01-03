@@ -26,18 +26,21 @@ void setup() {
 
   Wire.begin(); // For I2C and SPI  
 
+  matrix.begin(0x70);  // pass in the address
+
+  delay(100);
+  
+  matrix.clear();
+  matrix.fillRoundRect(1, 1, 6, 6, 2, LED_ON);
+  matrix.fillRoundRect(3, 3, 2, 2, 1, LED_OFF);
+  delay(1000);
+  matrix.writeDisplay();
+
   Serial.println("Gryo..");
   accelgyro.initialize();
   accelgyro.CalibrateAccel();
   Serial.println("OK");
   
-  matrix.begin(0x70);  // pass in the address
-  
-  matrix.clear();
-  matrix.fillCircle(3, 3, 4, LED_ON);
-  delay(1000);
-  matrix.writeDisplay();
-
   Serial.println("Testing device connections...");
   Serial.println(accelgyro.testConnection() ? "MPU6050 connection successful" : "MPU6050 connection failed");
   //matrix.fillCircle(0, 0, 3, 0);
